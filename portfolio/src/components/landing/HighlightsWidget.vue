@@ -68,7 +68,6 @@ const tools = [
     <div id="tools" class="py-6 px-6 lg:px-20 mx-0 lg:mx-20">
         <div
             class="grid grid-cols-12 gap-4 justify-center"
-            style="position: relative; bottom: 100px"
         >
             <div class="col-span-12 text-center mt-20 mb-6">
                 <div

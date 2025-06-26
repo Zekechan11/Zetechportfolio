@@ -9,7 +9,7 @@ function smoothScroll(id) {
 
 <template>
     <div
-        class="navbar py-6 px-6 mx-0 md:mx-12 lg:mx-0 lg:px-10 flex items-center justify-between fixed top-0 left-0 w-full z-20 shadow-lg"
+        class="navbar py-0 px-6 mx-0 md:mx-12 lg:mx-0 lg:px-10 flex items-center justify-between fixed top-0 left-0 w-full z-20 shadow-lg"
         style="
             color: darkblue;
             background-color: #f0f8ff;
@@ -21,7 +21,7 @@ function smoothScroll(id) {
             <img
                 src="/demo/img/favicon.ico"
                 alt="ZETECH Logo"
-                class="w-12 h-12 object-contain"
+                class="w-16 h-16 object-contain"
             />
             <span class="text-2xl font-bold text-[#065940]">ZETECH</span>
         </a>
@@ -43,7 +43,7 @@ function smoothScroll(id) {
             <i class="pi pi-bars !text-2xl"></i>
         </Button>
         <div
-            class="items-center bg-surface-0 dark:bg-surface-900 grow justify-center hidden lg:flex absolute lg:static w-full left-0 top-full px-12 lg:px-0 z-20"
+            class="items-center bg-surface-0 dark:bg-surface-900 grow justify-center hidden lg:flex absolute lg:static w-full left-0 top-full px-12 py-8 lg:px-0 z-20"
             style="background-color: #f0f8ff"
         >
             <ul

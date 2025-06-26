@@ -7,113 +7,85 @@ let index = 0;
 let isDeleting = false;
 
 function typeWriter() {
-    if (!isDeleting) {
-        displayText.value = fullText.substring(0, index + 1);
-        index++;
-        if (index < fullText.length) {
-            setTimeout(typeWriter, 100);
-        } else {
-            isDeleting = true;
-            setTimeout(typeWriter, 1500);
-        }
+  if (!isDeleting) {
+    displayText.value = fullText.substring(0, index + 1);
+    index++;
+    if (index <= fullText.length) {
+      setTimeout(typeWriter, 100);
     } else {
-        if (index > 0) {
-            index--;
-            displayText.value = fullText.substring(0, index);
-            setTimeout(typeWriter, 60);
-        } else {
-            isDeleting = false;
-            setTimeout(typeWriter, 500);
-        }
+      setTimeout(() => {
+        isDeleting = true;
+        typeWriter();
+      }, 1500); // pause before deleting
     }
+  } else {
+    displayText.value = fullText.substring(0, index - 1);
+    index--;
+    if (index >= 0) {
+      setTimeout(typeWriter, 50);
+    } else {
+      isDeleting = false;
+      setTimeout(typeWriter, 1000); // pause before retyping
+    }
+  }
 }
 
 onMounted(() => {
-    typeWriter();
+  typeWriter();
 });
 </script>
 
 <template>
-    <div
-        id="hero"
-        class="flex flex-col pt-6 px-6 lg:px-20 overflow-hidden relative"
-        style="
-            background: linear-gradient(
-                    0deg,
-                    rgba(255, 255, 255, 0.2),
-                    rgba(255, 255, 255, 0.2)
-                ),
-                radial-gradient(
-                    77.36% 256.97% at 77.36% 57.52%,
-                    rgb(238, 239, 175) 0%,
-                    rgb(195, 227, 250) 100%
-                );
-            clip-path: ellipse(140% 52% at 98% 19%);
-        "
-    >
-        <!-- Text Section -->
-        <div
-            class="mx-6 md:mx-20 mt-8 md:mt-16 relative z-10"
-            style="top: 60px"
-        >
-            <h1 class="text-6xl font-bold text-gray-900 leading-tight">
-                <span class="font-light block">HEYHEYHEY</span>
-                <!-- Typing Text -->
-                <span
-                    class="block whitespace-nowrap relative h-[4.5rem] md:h-[5rem]"
-                >
-                    <span class="absolute top-0 left-0">{{ displayText }}</span>
-                    <span class="invisible absolute top-0 left-0">{{
-                        fullText
-                    }}</span>
-                </span>
-            </h1>
-
-            <p
-                class="font-normal text-2xl leading-normal md:mt-4 text-gray-700"
-            >
-                Editor, Programmer, User Interface Designer
-            </p>
-        </div>
-
-        <!-- Responsive Image Section -->
-        <div class="flex justify-end mt-8 -mt-10 md:-mt-16 z-10">
-            <img
-                src="/demo/img/profile.png"
-                alt="Hero Image"
-                class="w-full object-contain floating-icon"
-                style="
-                    position: relative;
-                    left: 80px;
-                    height: 820px;
-                    width: 820px;
-                    bottom: 120px;
-                    animation-delay: 3s;
-                "
-            />
-        </div>
+  <div
+    id="hero"
+    class="flex flex-col pt-12 px-4 sm:px-6 lg:px-20 overflow-hidden relative min-h-[80vh]"
+    style="background: linear-gradient(0deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)),
+           radial-gradient(77.36% 256.97% at 77.36% 57.52%, rgb(238, 239, 175) 0%, rgb(195, 227, 250) 100%);
+           clip-path: ellipse(120% 76% at 93% 10%)"
+  >
+    <!-- TEXT SECTION -->
+    <div class="mx-4 sm:mx-8 md:mx-20 mt-12 md:mt-20 z-10 max-w-3xl">
+      <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 leading-tight">
+        <span class="font-light block">HEY HEY HEY</span>
+        <span >{{ displayText }}</span><span class="blink">|</span>
+      </h1>
+      <p class="font-normal text-lg sm:text-xl md:text-2xl leading-relaxed md:mt-4 text-gray-700">
+        Editor, Programmer, UI Designer
+      </p>
+      <Button
+        label="Subscribe"
+        as="router-link"
+        to="/"
+        rounded
+        class="!text-lg sm:!text-xl mt-6 sm:mt-8 !px-4"
+      />
     </div>
+
+    <!-- IMAGE SECTION -->
+    <div
+      class="absolute bottom-0 right-0 sm:relative sm:mt-12 z-0 
+             sm:ml-auto sm:translate-x-8 md:translate-x-16 lg:translate-x-24 xl:translate-x-32 
+             translate-y-[-65px] sm:-translate-y-12 md:-translate-y-20 lg:-translate-y-28 xl:-translate-y-36
+             w-full flex justify-end"
+    >
+      <img
+        src="/demo/img/profile.png"
+        alt="Hero Image"
+        class="w-[85%] sm:w-[360px] md:w-[520px] lg:w-[700px] xl:w-[800px] max-w-none object-contain"
+      />
+    </div>
+  </div>
 </template>
 
 <style scoped>
-@keyframes floatIcon {
-    0% {
-        transform: translateY(0) scale(1);
-        opacity: 0.2;
-    }
-
-    50% {
-        transform: translateY(-10px) scale(1.05);
-        opacity: 1;
-    }
-
-    100% {
-        transform: translateY(0) scale(1);
-        opacity: 0.2;
-    }
+.blink {
+  animation: blink-animation 1s steps(2, start) infinite;
 }
 
-.floating-icon {
-    animation: floatIcon 4s ease-in-out infinite;
+@keyframes blink-animation {
+  to {
+    visibility: hidden;
+  }
 }
 </style>
+
