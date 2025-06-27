@@ -2,7 +2,6 @@
 
 <template>
     <div
-        id="contacts"
         class="py-16 px-10 mx-0 mt-20 lg:mx-0"
         style="background-color: #566573"
     >
@@ -25,12 +24,6 @@
                     stories that inspire and amaze. Welcome to the future of
                     video creativity.
                 </p>
-                <select
-                    class="mt-6 px-4 py-2 border border-white text-white font-semibold rounded"
-                    style="background-color: transparent"
-                >
-                    <option hidden>Contact me</option>
-                </select>
             </div>
 
             <!-- Navigation Links -->
