@@ -21,10 +21,10 @@ function closeContactModal() {
 
 <template>
     <div class="navbar py-0 px-6 mx-0 md:mx-12 lg:mx-0 lg:px-10 flex items-center justify-between fixed top-0 left-0 w-full z-20 shadow-lg"
-        style="color: darkblue; background-color: #f0f8ff; font-weight: bold; color: white">
+        style="color: darkblue; background-color: #566573; font-weight: bold; color: white">
         <a class="flex items-center gap-3" href="#">
             <img src="/demo/img/favicon.ico" alt="ZETECH Logo" class="w-16 h-16 object-contain" />
-            <span class="text-2xl font-bold text-[#065940]">ZETECH</span>
+            <span class="text-2xl text-white font-bold text-[#065940]">ZETECH</span>
         </a>
 
         <!-- Mobile Menu Button -->
@@ -41,23 +41,23 @@ function closeContactModal() {
 
         <!-- Navigation Menu -->
         <div class="items-center bg-surface-0 dark:bg-surface-900 grow justify-center hidden lg:flex absolute lg:static w-full left-0 top-full px-12 py-8 lg:px-0 z-20"
-            style="background-color: #f0f8ff">
+            style="background-color: #566573">
             <ul
                 class="list-none p-0 m-0 flex lg:items-center select-none flex-col lg:flex-row cursor-pointer gap-10 mx-auto">
                 <li><a @click="smoothScroll('#hero')"
                         :class="['menu-item font-semibold', activeSection === 'hero' ? 'active' : '']"><button
-                            text>Home</button></a></li>
+                            text style="color: white;">Home</button></a></li>
                 <li><a @click="smoothScroll('#features')"
                         :class="['menu-item font-semibold', activeSection === 'features' ? 'active' : '']"><button
-                            text>Highlights</button></a></li>
+                            text style="color: white;">Highlights</button></a></li>
                 <li><a @click="smoothScroll('#tools')"
                         :class="['menu-item font-semibold', activeSection === 'tools' ? 'active' : '']"><button
-                            text>Tools</button></a></li>
+                            text style="color: white;">Tools</button></a></li>
                 <li><a @click="smoothScroll('#about')"
                         :class="['menu-item font-semibold', activeSection === 'about' ? 'active' : '']"><button
-                            text>About</button></a></li>
+                            text style="color: white;">About</button></a></li>
                 <li><a @click="showContactModal = true" class="menu-item font-semibold"><button
-                            text>Contacts</button></a></li>
+                            text style="color: white;">Contacts</button></a></li>
             </ul>
 
             <!-- Social Buttons -->
