@@ -67,7 +67,7 @@ onMounted(() => {
       <div
         v-for="(video, i) in [
           { src: 'https://www.youtube.com/embed/ZAEZAez2WhA', title: 'Mine Craft', desc: 'Follow me..' },
-          { src: 'https://www.youtube.com/embed/Br0eDKCxmPQ', title: 'Just a random..', desc: 'Follow me..' },
+          { src: 'https://www.youtube.com/embed/Fb9pk-4-qDI', title: 'Just a random..', desc: 'Follow me..' },
           { src: 'https://www.youtube.com/embed/3RjukuAK8gs', title: 'Fun to paly games', desc: 'Follow me..' }
         ]"
         :key="i"
