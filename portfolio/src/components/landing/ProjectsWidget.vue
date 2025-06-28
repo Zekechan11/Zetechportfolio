@@ -9,6 +9,9 @@ const visibleCard3 = ref(false);
 // Toggle view
 const showHighlights = ref(true);
 
+// YouTube player refs
+const players = ref([]);
+
 // Border gradient
 const gradientStyle = `
   background: linear-gradient(
@@ -23,22 +26,55 @@ const gradientStyle = `
   )
 `;
 
+// Intersection observer for animations
 onMounted(() => {
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      const index = entry.target.getAttribute("data-index");
-      if (entry.isIntersecting) {
-        if (index === "1") visibleCard1.value = true;
-        if (index === "2") visibleCard2.value = true;
-        if (index === "3") visibleCard3.value = true;
-      }
-    });
-  }, { threshold: 0.1 });
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        const index = entry.target.getAttribute("data-index");
+        if (entry.isIntersecting) {
+          if (index === "1") visibleCard1.value = true;
+          if (index === "2") visibleCard2.value = true;
+          if (index === "3") visibleCard3.value = true;
+        }
+      });
+    },
+    { threshold: 0.1 }
+  );
 
   document.querySelectorAll(".fade-up-card").forEach((el) => {
     observer.observe(el);
   });
+
+  // Load YouTube IFrame API
+  const tag = document.createElement("script");
+  tag.src = "https://www.youtube.com/iframe_api";
+  document.body.appendChild(tag);
 });
+
+// Define global function for YouTube API
+window.onYouTubeIframeAPIReady = () => {
+  document.querySelectorAll("iframe.youtube-video").forEach((el, index) => {
+    players.value[index] = new YT.Player(el, {
+      events: {
+        onStateChange: (event) => {
+          if (event.data === YT.PlayerState.PLAYING) {
+            stopOtherVideos(index);
+          }
+        },
+      },
+    });
+  });
+};
+
+// Stop other videos
+function stopOtherVideos(currentIndex) {
+  players.value.forEach((player, idx) => {
+    if (idx !== currentIndex && player?.pauseVideo) {
+      player.pauseVideo();
+    }
+  });
+}
 </script>
 
 <template>
@@ -51,8 +87,6 @@ onMounted(() => {
           Marvelous Highlights
         </div>
         <span class="text-muted-color text-2xl">Enjoy Watching...</span>
-
-        <!-- Toggle Button under the title -->
         <div class="mt-4">
           <button
             class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-xl transition-all duration-300"
@@ -82,8 +116,9 @@ onMounted(() => {
         <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded-xl overflow-hidden shadow-md group">
           <div class="relative aspect-video rounded-lg overflow-hidden">
             <iframe
-              :src="video.src"
-              class="w-full h-full rounded-lg"
+              :id="`video-${i}`"
+              class="w-full h-full rounded-lg youtube-video"
+              :src="video.src + '?enablejsapi=1'"
               frameborder="0"
               allowfullscreen
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -103,14 +138,11 @@ onMounted(() => {
 
     <!-- Programming Projects Section -->
     <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      <!-- Section Title -->
       <div class="col-span-full text-center mb-4">
         <div class="text-surface-900 dark:text-surface-0 font-semibold mb-2 text-4xl">
           Programming Projects
         </div>
         <span class="text-muted-color text-2xl">Explore Code Creations...</span>
-
-        <!-- Toggle Button under the title -->
         <div class="mt-4">
           <button
             class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-xl transition-all duration-300"
@@ -121,7 +153,7 @@ onMounted(() => {
         </div>
       </div>
 
-      <!-- Project Cards with Full Image -->
+      <!-- Project Cards -->
       <div
         v-for="(project, i) in [
           {
