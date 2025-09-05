@@ -16,7 +16,7 @@
                     />
                     <span
                         class="text-white text-5xl font-extrabold tracking-wide"
-                        >ZETECH</span
+                        >ZEKEE</span
                     >
                 </div>
                 <p class="text-white text-lg mt-4 leading-snug max-w-sm">
@@ -31,7 +31,6 @@
                 <h4 class="text-white font-bold text-2xl mb-3">Explore</h4>
                 <ul class="text-white space-y-2 text-lg">
                     <li>Video Highlights</li>
-                    <li>Tools I Use</li>
                     <li>Collaborate</li>
                     <li>About Me</li>
                     <li>Get in Touch</li>

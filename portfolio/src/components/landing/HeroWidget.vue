@@ -16,7 +16,7 @@ function typeWriter() {
       setTimeout(() => {
         isDeleting = true;
         typeWriter();
-      }, 1500); // pause before deleting
+      }, 1500);
     }
   } else {
     displayText.value = fullText.substring(0, index - 1);
@@ -25,7 +25,7 @@ function typeWriter() {
       setTimeout(typeWriter, 50);
     } else {
       isDeleting = false;
-      setTimeout(typeWriter, 1000); // pause before retyping
+      setTimeout(typeWriter, 1000);
     }
   }
 }
@@ -36,56 +36,86 @@ onMounted(() => {
 </script>
 
 <template>
-  <div
+  <section
     id="hero"
-    class="flex flex-col pt-12 px-4 sm:px-6 lg:px-20 overflow-hidden relative min-h-[80vh]"
-    style="background: linear-gradient(0deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)),
-           radial-gradient(77.36% 256.97% at 77.36% 57.52%, rgb(238, 239, 175) 0%, rgb(195, 227, 250) 100%);
-           clip-path: ellipse(120% 76% at 93% 10%)"
+    class="relative flex flex-col-reverse lg:flex-row items-center justify-between 
+           min-h-screen px-6 sm:px-10 lg:px-20 pt-20 overflow-hidden
+           bg-gradient-to-br from-blue-100 via-pink-50 to-yellow-100"
   >
-    <!-- TEXT SECTION -->
-    <div class="mx-4 sm:mx-8 md:mx-20 mt-12 md:mt-20 z-10 max-w-3xl">
-      <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 leading-tight">
-        <span class="font-light block">HEY HEY HEY</span>
-        <span >{{ displayText }}</span><span class="blink">|</span>
-      </h1>
-      <p class="font-normal text-lg sm:text-xl md:text-2xl leading-relaxed md:mt-4 text-gray-700">
-        Editor, Programmer, UI Designer
-      </p>
-      <Button
-        label="Subscribe"
-        as="router-link"
-        to="/"
-        rounded
-        class="!text-lg sm:!text-xl mt-6 sm:mt-8 !px-4"
-      />
+    <!-- Gradient Accent Blobs -->
+    <div class="absolute inset-0 -z-10">
+      <div
+        class="absolute w-[600px] h-[600px] bg-blue-300 rounded-full blur-3xl opacity-30
+               top-[-150px] left-[-200px] animate-pulse"
+      ></div>
+      <div
+        class="absolute w-[700px] h-[700px] bg-pink-300 rounded-full blur-3xl opacity-30
+               bottom-[-200px] right-[-250px] animate-pulse"
+      ></div>
     </div>
 
-    <!-- IMAGE SECTION -->
-    <div
-      class="absolute bottom-0 right-0 sm:relative sm:mt-12 z-0 
-             sm:ml-auto sm:translate-x-8 md:translate-x-16 lg:translate-x-24 xl:translate-x-32 
-             translate-y-[-65px] sm:-translate-y-12 md:-translate-y-20 lg:-translate-y-28 xl:-translate-y-36
-             w-full flex justify-end"
-    >
-      <img
-        src="/demo/img/profile.png"
-        alt="Hero Image"
-        class="w-[85%] sm:w-[360px] md:w-[520px] lg:w-[700px] xl:w-[800px] max-w-none object-contain"
-      />
+    <!-- LEFT CONTENT -->
+    <div class="text-center lg:text-left max-w-2xl z-10">
+      <h1
+        class="font-extrabold leading-tight text-gray-900 
+               text-[clamp(2rem,6vw,4.5rem)]"
+      >
+        <span>{{ displayText }}</span><span class="blink">|</span>
+      </h1>
+
+      <p
+        class="mt-4 text-gray-700 leading-relaxed
+               text-[clamp(1rem,2vw,1.5rem)]"
+      >
+        I can do Editor, Programmer, UI Designer
+      </p>
     </div>
-  </div>
+
+    <!-- RIGHT IMAGE in Circle -->
+    <div
+      class="flex justify-center lg:justify-end w-full lg:w-1/2 z-0 animate-float"
+    >
+      <div
+        class="relative rounded-full overflow-hidden shadow-2xl 
+               bg-gradient-to-tr from-blue-200 via-pink-100 to-yellow-100
+               p-2 sm:p-4 lg:p-6 max-w-[280px] sm:max-w-[360px] md:max-w-[460px] lg:max-w-[520px]"
+      >
+        <img
+          src="/demo/img/profile.png"
+          alt="Hero Image"
+          class="rounded-full object-cover w-full h-full"
+        />
+        <!-- Subtle glow effect -->
+        <div
+          class="absolute inset-0 rounded-full border-4 border-white/40 
+                 shadow-[0_0_30px_rgba(255,255,255,0.6)] pointer-events-none"
+        ></div>
+      </div>
+    </div>
+  </section>
 </template>
+
 
 <style scoped>
 .blink {
   animation: blink-animation 1s steps(2, start) infinite;
 }
-
 @keyframes blink-animation {
   to {
     visibility: hidden;
   }
 }
-</style>
 
+/* Floating hero image animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+</style>

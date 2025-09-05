@@ -1,154 +1,180 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 
-// Track which section is currently active
 const activeSection = ref("hero");
-
-function smoothScroll(id) {
-    activeSection.value = id.replace("#", "");
-    document.body.click();
-    document.querySelector(id).scrollIntoView({
-        behavior: "smooth",
-    });
-}
-
+const showMobileMenu = ref(false);
 const showContactModal = ref(false);
 
-function closeContactModal() {
-    showContactModal.value = false;
+function smoothScroll(id) {
+  activeSection.value = id.replace("#", "");
+  document.querySelector(id).scrollIntoView({ behavior: "smooth" });
+  showMobileMenu.value = false;
 }
+
+function closeContactModal() {
+  showContactModal.value = false;
+}
+
+const isScrolled = ref(false);
+onMounted(() => {
+  window.addEventListener("scroll", () => {
+    isScrolled.value = window.scrollY > 20;
+  });
+});
 </script>
 
 <template>
-    <div class="navbar py-0 px-6 mx-0 md:mx-12 lg:mx-0 lg:px-10 flex items-center justify-between fixed top-0 left-0 w-full z-20 shadow-lg"
-        style="color: darkblue; background-color: #566573; font-weight: bold; color: white">
-        <a class="flex items-center gap-3" href="#">
-            <img src="/demo/img/favicon.ico" alt="ZETECH Logo" class="w-16 h-16 object-contain" />
-            <span class="text-2xl text-white font-bold text-[#065940]">ZETECH</span>
+  <!-- NAVBAR -->
+  <nav
+    :class="[
+      'fixed top-0 left-0 w-full z-50 transition-all duration-500 backdrop-blur-lg',
+      isScrolled
+        ? 'bg-white/80 shadow-md dark:bg-neutral-900/80'
+        : 'bg-transparent'
+    ]"
+  >
+    <div class="max-w-7xl mx-auto flex items-center justify-between px-6 lg:px-12 py-4">
+      <!-- Brand -->
+      <a class="flex items-center gap-3" href="#hero">
+        <img
+          src="/demo/img/favicon.ico"
+          alt="ZETECH Logo"
+          class="w-12 h-12 object-contain drop-shadow-md"
+        />
+        <span
+          class="text-2xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-blue-600 bg-clip-text text-transparent"
+        >
+          ZEKEE
+        </span>
+      </a>
+
+      <!-- Desktop Menu -->
+      <ul
+        class="hidden lg:flex items-center gap-10 font-semibold tracking-wide text-gray-700 dark:text-gray-200"
+      >
+        <li
+          v-for="item in [
+            { id: 'hero', label: 'Home' },
+            { id: 'features', label: 'Highlights' },
+            { id: 'tools', label: 'Tools' },
+            { id: 'about', label: 'About' }
+          ]"
+          :key="item.id"
+        >
+          <a
+            @click="smoothScroll('#' + item.id)"
+            class="relative cursor-pointer transition-colors hover:text-pink-600"
+            :class="activeSection === item.id ? 'text-pink-600' : ''"
+          >
+            {{ item.label }}
+            <span
+              class="absolute left-0 -bottom-1 h-[2px] w-full bg-gradient-to-r from-yellow-400 via-pink-500 to-blue-500 scale-x-0 transition-transform origin-right"
+              :class="activeSection === item.id ? 'scale-x-100 origin-left' : 'group-hover:scale-x-100'"
+            ></span>
+          </a>
+        </li>
+        <li>
+          <button
+            @click="showContactModal = true"
+            class="bg-gradient-to-r from-blue-500 via-pink-500 to-yellow-400 text-white px-5 py-2 rounded-xl shadow-md hover:shadow-lg transition-transform hover:scale-105"
+          >
+            Contacts
+          </button>
+        </li>
+      </ul>
+
+      <!-- Mobile Menu Button -->
+      <button
+        @click="showMobileMenu = !showMobileMenu"
+        class="lg:hidden text-3xl text-gray-800 dark:text-gray-200"
+      >
+        <i class="pi pi-bars"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Dropdown -->
+    <div
+      v-if="showMobileMenu"
+      class="lg:hidden flex flex-col gap-6 px-6 py-6 bg-white/90 dark:bg-neutral-900/90 backdrop-blur-xl shadow-lg"
+    >
+      <a
+        v-for="item in [
+          { id: 'hero', label: 'Home' },
+          { id: 'features', label: 'Highlights' },
+          { id: 'tools', label: 'Tools' },
+          { id: 'about', label: 'About' }
+        ]"
+        :key="item.id"
+        @click="smoothScroll('#' + item.id)"
+        class="text-lg font-semibold text-gray-800 dark:text-gray-100"
+      >
+        {{ item.label }}
+      </a>
+      <button
+        @click="showContactModal = true"
+        class="bg-gradient-to-r from-blue-500 via-pink-500 to-yellow-400 text-white px-5 py-2 rounded-xl shadow-md hover:shadow-lg transition-transform hover:scale-105"
+      >
+        Contacts
+      </button>
+    </div>
+  </nav>
+
+  <!-- Contact Modal -->
+  <div
+    v-if="showContactModal"
+    class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50"
+  >
+    <div
+      class="relative bg-white/90 dark:bg-neutral-900/90 backdrop-blur-lg rounded-2xl shadow-2xl p-8 w-full max-w-lg animate-fadeInUp"
+    >
+      <button
+        @click="closeContactModal"
+        class="absolute top-3 right-4 text-gray-500 hover:text-gray-800 dark:hover:text-white text-xl"
+      >
+        ✕
+      </button>
+      <h2
+        class="text-3xl font-bold text-center bg-gradient-to-r from-yellow-400 via-pink-500 to-blue-600 bg-clip-text text-transparent mb-6"
+      >
+        Let's Connect
+      </h2>
+      <p class="text-center text-gray-700 dark:text-gray-300 mb-6">
+        Reach out to me via socials below
+      </p>
+      <div class="flex justify-center gap-6">
+        <a href="mailto:pelayoezekiel96@gmail.com" target="_blank"
+          class="text-red-500 hover:text-red-700 text-3xl transition-transform hover:scale-125">
+          <i class="pi pi-envelope"></i>
         </a>
-
-        <!-- Mobile Menu Button -->
-        <Button class="lg:!hidden" text severity="secondary" rounded v-styleclass="{
-            selector: '@next',
-            enterFromClass: 'hidden',
-            enterActiveClass: 'animate-scalein',
-            leaveToClass: 'hidden',
-            leaveActiveClass: 'animate-fadeout',
-            hideOnOutsideClick: true,
-        }">
-            <i class="pi pi-bars !text-2xl"></i>
-        </Button>
-
-        <!-- Navigation Menu -->
-        <div class="items-center bg-surface-0 dark:bg-surface-900 grow justify-center hidden lg:flex absolute lg:static w-full left-0 top-full px-12 py-8 lg:px-0 z-20"
-            style="background-color: #566573">
-            <ul
-                class="list-none p-0 m-0 flex lg:items-center select-none flex-col lg:flex-row cursor-pointer gap-10 mx-auto">
-                <li><a @click="smoothScroll('#hero')"
-                        :class="['menu-item font-semibold', activeSection === 'hero' ? 'active' : '']"><button
-                            text style="color: white;">Home</button></a></li>
-                <li><a @click="smoothScroll('#features')"
-                        :class="['menu-item font-semibold', activeSection === 'features' ? 'active' : '']"><button
-                            text style="color: white;">Highlights</button></a></li>
-                <li><a @click="smoothScroll('#tools')"
-                        :class="['menu-item font-semibold', activeSection === 'tools' ? 'active' : '']"><button
-                            text style="color: white;">Tools</button></a></li>
-                <li><a @click="smoothScroll('#about')"
-                        :class="['menu-item font-semibold', activeSection === 'about' ? 'active' : '']"><button
-                            text style="color: white;">About</button></a></li>
-                <li><a @click="showContactModal = true" class="menu-item font-semibold"><button
-                            text style="color: white;">Contacts</button></a></li>
-            </ul>
-
-            <!-- Social Buttons -->
-            <div class="flex items-center gap-2 border-t lg:border-t-0 border-surface py-4 lg:py-0 mt-4 lg:mt-0">
-                <a href="https://www.facebook.com/ezekielangelo.pelayo" target="_blank">
-                    <Button icon="pi pi-facebook" style="background-color: #0866ff; border: #065940"
-                        class="hover:!bg-blue-700 hover:!border-blue-300 transform transition-transform duration-200 hover:scale-110"
-                        v-tooltip.bottom="'Facebook'" />
-                </a>
-                <a href="https://github.com/Zekechan11" target="_blank">
-                    <Button icon="pi pi-github" style="background-color: #1c2833; border: #065940"
-                        class="hover:!bg-neutral-700 hover:!border-neutral-200 transform transition-transform duration-200 hover:scale-110"
-                        v-tooltip.bottom="'GitHub'" />
-                </a>
-            </div>
-        </div>
+        <a href="https://www.facebook.com/ezekielangelo.pelayo" target="_blank"
+          class="text-blue-600 hover:text-blue-800 text-3xl transition-transform hover:scale-125">
+          <i class="pi pi-facebook"></i>
+        </a>
+        <a href="https://www.instagram.com/zeke_zetsu/?hl=en" target="_blank"
+          class="text-pink-500 hover:text-pink-700 text-3xl transition-transform hover:scale-125">
+          <i class="pi pi-instagram"></i>
+        </a>
+        <a href="https://wa.me/+639673520009" target="_blank"
+          class="text-green-500 hover:text-green-700 text-3xl transition-transform hover:scale-125">
+          <i class="pi pi-whatsapp"></i>
+        </a>
+      </div>
     </div>
-
-    <!-- Contact Modal: Social Apps Only -->
-    <div v-if="showContactModal"
-        class="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex items-center justify-center z-50">
-        <div
-            class="relative bg-white/80 backdrop-blur-lg rounded-2xl shadow-2xl p-8 w-full max-w-xl animate-fadeInUp transition-all duration-300">
-            <!-- Close Button -->
-            <button @click="closeContactModal"
-                class="absolute top-3 right-4 text-gray-500 hover:text-gray-800 text-xl">✕</button>
-
-            <!-- Title -->
-            <h2 class="text-3xl font-bold text-center text-[#065940] mb-6">Let's Connect</h2>
-
-            <!-- Subtitle -->
-            <p class="text-center text-gray-700 mb-6">Reach out to me via socials below</p>
-
-            <!-- Social Media Icons -->
-            <div class="flex justify-center gap-6">
-                <a href="mailto:pelayoezekiel96@gmail.com" target="_blank"
-                    class="text-red-500 hover:text-red-700 text-3xl transition-transform hover:scale-125"
-                    v-tooltip.bottom="'Gmail'">
-                    <i class="pi pi-envelope"></i>
-                </a>
-                <a href="https://www.facebook.com/ezekielangelo.pelayo" target="_blank"
-                    class="text-blue-600 hover:text-blue-800 text-3xl transition-transform hover:scale-125"
-                    v-tooltip.bottom="'Facebook'"><i class="pi pi-facebook"></i></a>
-                <a href="https://www.instagram.com/zeke_zetsu/?hl=en" target="_blank"
-                    class="text-pink-500 hover:text-pink-700 text-3xl transition-transform hover:scale-125"
-                    v-tooltip.bottom="'Instagram'"><i class="pi pi-instagram"></i></a>
-                <a href="https://wa.me/+639673520009" target="_blank"
-                    class="text-green-500 hover:text-green-700 text-3xl transition-transform hover:scale-125"
-                    v-tooltip.bottom="'WhatsApp'"><i class="pi pi-whatsapp"></i></a>
-            </div>
-        </div>
-    </div>
+  </div>
 </template>
 
 <style scoped>
-.menu-item {
-    color: #000000;
-    text-decoration: none;
-    position: relative;
-}
-
-.menu-item:hover::after,
-.menu-item.active::after {
-    transform: scaleX(1);
-}
-
-.menu-item::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -4px;
-    height: 2px;
-    background-color: #b7e06a;
-    transform: scaleX(0);
-    transition: transform 0.3s ease;
-}
-
 @keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
-
 .animate-fadeInUp {
-    animation: fadeInUp 0.4s ease-out;
+  animation: fadeInUp 0.4s ease-out;
 }
 </style>

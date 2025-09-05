@@ -27,11 +27,11 @@ const gradientStyle = `
 `;
 
 const images = [
-  { src: "/demo/img/edit1.png", title: "BirthDay" },
-  { src: "/demo/img/edit2.png", title: "BirthDay"},
-  { src: "/demo/img/edit5.png", title: "BirthDay"},
-  { src: "/demo/img/edit4.png", title: "logo"},
-  { src: "/demo/img/edit3.png", title: "Billboard"},
+  { src: "/demo/img/edit1.png", title: "Photoshop BirthDay" },
+  { src: "/demo/img/edit2.png", title: "Photoshop BirthDay"},
+  { src: "/demo/img/edit5.png", title: "Photoshop BirthDay"},
+  { src: "/demo/img/edit4.png", title: "Illustrator Logo"},
+  { src: "  /demo/img/edit3.png", title: "Photoshop Billboard"},
 ]
 
 const selectedImage = ref(null)

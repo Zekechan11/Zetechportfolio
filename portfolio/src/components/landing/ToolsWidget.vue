@@ -75,6 +75,19 @@ const programmingTools = [
     description: "Popular CSS framework for building responsive and mobile-first websites.",
     bgClass: "bg-purple-100",
   },
+  {
+  title: "VUE.JS",
+  icon: "/demo/images/vue.png", // ✅ better to use vue icon instead of bootstrap
+  description: "Progressive JavaScript framework for building user interfaces and single-page applications.",
+  bgClass: "bg-green-100",
+},
+{
+  title: "REACT",
+  icon: "/demo/images/react.png",
+  description: "A powerful JavaScript library for building fast, scalable, and interactive user interfaces.",
+  bgClass: "bg-blue-100",
+},
+
 ];
 
 // Dynamic card visibility based on longest array
