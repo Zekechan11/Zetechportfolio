@@ -36,11 +36,7 @@ onMounted(() => {
     <div class="max-w-7xl mx-auto flex items-center justify-between px-6 lg:px-12 py-4">
       <!-- Brand -->
       <a class="flex items-center gap-3" href="#hero">
-        <img
-          src="/demo/img/favicon.ico"
-          alt="ZETECH Logo"
-          class="w-12 h-12 object-contain drop-shadow-md"
-        />
+        
         <span
           class="text-2xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-blue-600 bg-clip-text text-transparent"
         >
