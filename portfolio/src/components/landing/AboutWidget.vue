@@ -37,7 +37,7 @@ onMounted(() => {
                             #c3dcfa 100%
                         );
                 ">
-                <div class="flex flex-col justify-center items-center text-center">
+                <div class="text-left flex flex-col justify-center items-center">
                     <h2 class="text-gray-900 text-4xl font-extrabold mb-3">
                         I'm Ezekiel Angelo C. Pelayo
                     </h2>
