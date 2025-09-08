@@ -108,9 +108,13 @@ onMounted(() => {
         <a href="#" class="inline-flex items-center justify-center px-8 py-3 rounded-full text-sm font-semibold transition-transform duration-300 transform hover:scale-105 shadow-xl bg-white text-gray-900">
           Explore My Project
         </a>
-        <a href="#" class="inline-flex items-center justify-center px-8 py-3 rounded-full text-sm font-semibold transition-transform duration-300 transform hover:scale-105 shadow-xl bg-transparent border border-white text-white hover:bg-white hover:text-gray-900">
-          Download My CV
-        </a>
+        <a
+  href="/CV/Pelayo_Ezekiel.pdf"
+  download="Ezekiel_Angelo_Pelayo.pdf"
+  class="inline-flex items-center justify-center px-8 py-3 rounded-full text-sm font-semibold transition-transform duration-300 transform hover:scale-105 shadow-xl bg-transparent border border-white text-white hover:bg-white hover:text-gray-900"
+>
+  Download My CV
+</a>
       </div>
     </div>
 
@@ -121,28 +125,29 @@ onMounted(() => {
       </div>
 
       <!-- Floating tech icons (animate entrance) -->
-      <div class="absolute top-0 left-[60px] translate-y-6 bg-white backdrop-blur-sm p-3 rounded-full shadow-lg border border-gray-600/50 group animate-slide-fade-delay">
-        <img src="/demo/images/vue.png" alt="Vue.js" class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12"/>
-        <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 rounded bg-gray-200 text-gray-800 text-lg whitespace-nowrap opacity-0 invisible group-hover:visible group-hover:opacity-100 transition-all duration-200">
-          Vue.js
-        </div>
-      </div>
+     <div class="absolute top-0 left-[60px] icon-wrapper bg-white backdrop-blur-sm p-3 rounded-full shadow-lg border border-gray-600/50 group">
+  <img src="/demo/images/vue.png" alt="Vue.js" class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12"/>
+  <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 rounded bg-gray-200 text-gray-800 text-lg whitespace-nowrap opacity-0 invisible group-hover:visible group-hover:opacity-100 transition-all duration-200">
+    Vue.js
+  </div>
+</div>
 
-      <div class="absolute bottom-0 left-1/4 -translate-x-1/2 translate-y-1/2 bg-white backdrop-blur-sm p-3 rounded-full shadow-lg border border-gray-600/50 group animate-slide-fade-delay-2">
+
+      <div class="absolute bottom-0 left-[50px] icon-wrapper -translate-x-1/2 translate-y-1/2 bg-white backdrop-blur-sm p-3 rounded-full shadow-lg border border-gray-600/50 group">
         <img src="/demo/images/react.png" alt="React" class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12"/>
         <div class="absolute top-full left-1/2 -translate-x-1/2 mt-2 px-2 py-1 rounded bg-gray-200 text-gray-800 text-lg whitespace-nowrap opacity-0 invisible group-hover:visible group-hover:opacity-100 transition-all duration-200">
           React.js
         </div>
       </div>
 
-      <div class="absolute top-1/4 right-[20px] -translate-y-1/2 bg-white backdrop-blur-sm p-3 rounded-full shadow-lg border border-gray-600/50 group animate-slide-fade-delay-3">
+      <div class="absolute top-1/4 right-[20px] icon-wrapper -translate-y-1/2 bg-white backdrop-blur-sm p-3 rounded-full shadow-lg border border-gray-600/50 group">
         <img src="/demo/images/tailwind.png" alt="Tailwind" class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12"/>
         <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 rounded bg-gray-200 text-gray-800 text-lg whitespace-nowrap opacity-0 invisible group-hover:visible group-hover:opacity-100 transition-all duration-200">
           Tailwind
         </div>
       </div>
 
-      <div class="absolute bottom-0 right-[70px] translate-x-6 bg-white backdrop-blur-sm p-3 rounded-full shadow-lg border border-gray-600/50 group animate-slide-fade-delay-4">
+      <div class="absolute bottom-0 icon-wrapper right-[70px] translate-x-6 bg-white backdrop-blur-sm p-3 rounded-full shadow-lg border border-gray-600/50 group">
         <img src="/demo/img/capcut.png" alt="Capcut" class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12"/>
         <div class="absolute top-full left-1/2 -translate-x-1/2 mt-2 px-2 py-1 rounded bg-gray-200 text-gray-800 text-lg whitespace-nowrap opacity-0 invisible group-hover:visible group-hover:opacity-100 transition-all duration-200">
           Capcut
@@ -172,22 +177,33 @@ onMounted(() => {
   animation: float 6s ease-in-out infinite;
 }
 
-/* Background blobs animation */
-@keyframes slow-float {
-  0%, 100% { transform: translateY(0px) translateX(0px); }
-  50% { transform: translateY(-40px) translateX(30px); }
+
+/* Floating small icons animation */
+@keyframes floatSmall {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
 }
-.animate-slow-float { animation: slow-float 18s ease-in-out infinite; }
-.animate-slow-float-delayed { animation: slow-float 20s ease-in-out infinite; animation-delay: 5s; }
+
+.animate-float-small {
+  animation: floatSmall 4s ease-in-out infinite;
+}
 
 /* Entrance animation */
 @keyframes slideFadeIn {
   0% { opacity: 0; transform: translateY(30px); }
   100% { opacity: 1; transform: translateY(0); }
 }
-.animate-slide-fade { animation: slideFadeIn 1s ease-out forwards; }
+.animate-slide-fade {
+  animation: slideFadeIn 1s ease-out forwards;
+}
 .animate-slide-fade-delay { animation: slideFadeIn 1s ease-out forwards; animation-delay: 0.3s; }
 .animate-slide-fade-delay-2 { animation: slideFadeIn 1s ease-out forwards; animation-delay: 0.6s; }
 .animate-slide-fade-delay-3 { animation: slideFadeIn 1s ease-out forwards; animation-delay: 0.9s; }
 .animate-slide-fade-delay-4 { animation: slideFadeIn 1s ease-out forwards; animation-delay: 1.2s; }
+
+/* Combine entrance + float without conflict */
+.icon-wrapper {
+  animation: slideFadeIn 1s ease-out forwards, floatSmall 4s ease-in-out infinite;
+}
+
 </style>

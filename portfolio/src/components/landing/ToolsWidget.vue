@@ -159,9 +159,9 @@ function setupObserver() {
   >
     <div class="grid grid-cols-12 gap-4 justify-center">
       <div class="col-span-12 text-center mt-6 mb-6">
-        <div class="text-surface-900 dark:text-surface-0 font-normal mb-2 text-4xl">
-          {{ showEditingTools ? "My Editing Tools" : "My Programming Tools" }}
-        </div>
+     <div class="section-title font-semibold mb-2 text-4xl">
+  {{ showEditingTools ? "My Editing Tools" : "My Programming Tools" }}
+</div>
         <span class="text-muted-color text-2xl">
           {{
             showEditingTools
@@ -195,7 +195,7 @@ function setupObserver() {
                 : 'bg-white text-gray-800 border-gray-800 hover:bg-gray-700 hover:text-white',
             ]"
           >
-            💻 Programming Projects
+            💻 Programming Tools
           </button>
         </div>
       </div>
@@ -292,5 +292,9 @@ function setupObserver() {
   animation: flipIn 0.7s ease forwards;
   transform-style: preserve-3d;
   backface-visibility: hidden;
+}
+
+.section-title {
+  font-family: 'Poppins', sans-serif !important;
 }
 </style>
